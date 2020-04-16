@@ -1,6 +1,8 @@
 language: node_js
 node_js:
 - 12
+
+
 deploy:
   provider: firebase
   token:
@@ -11,6 +13,11 @@ cache:
   yarn: true
   directories:
   - node_modules
+  - functions/node_modules
+install:
+  - yarn
+  - yarn --ignore-engines --cwd=functions
+
 script:
 - yarn test
 - yarn build
