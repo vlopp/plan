@@ -1,1 +1,1 @@
-# README
+[![Build Status](https://travis-ci.com/vlopp/plan.svg?branch=master)](https://travis-ci.com/vlopp/plan)
