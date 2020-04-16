@@ -3,6 +3,8 @@
 .vscode
 .env
 
+travis.log
+
 # dependencies
 /node_modules
 /.pnp
