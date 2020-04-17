@@ -4,7 +4,6 @@ import {
   Box,
   Button,
   Checkbox,
-  Drawer,
   FormControlLabel,
   Paper,
   TextField,
@@ -15,8 +14,6 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import ReactPlayer from "react-player";
 import vid from "./assets/vid.mp4";
-
-export type LandingProps = {};
 
 const Root = styled.div`
   display: grid;
@@ -84,10 +81,11 @@ const FadeinText = styled(Typography)`
 
 //todo anim
 //todo routing
-export default (props: LandingProps) => {
+export default () => {
   const { handleSubmit, register } = useForm();
   const { t } = useTranslation();
   const onSubmit = (data) => {
+    console.log(data);
     //todo login proc
   };
 
