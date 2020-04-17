@@ -4,6 +4,7 @@ import { theme } from "../themes/theme";
 import { MuiThemeProvider, StylesProvider } from "@material-ui/core";
 import { GlobalStyles } from "../GlobalStyles";
 import { ThemeProvider } from "styled-components";
+import '../i18n/init';
 
 export const StandardConfiguration = (props) => {
   return (

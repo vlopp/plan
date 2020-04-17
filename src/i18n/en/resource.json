@@ -1,5 +1,7 @@
 {
   "translation": {
-    "Hello": "Hello"
+    "Hello": "Hello",
+    "log in": "Log in",
+    "remember me": "Remember me"
   }
 }
