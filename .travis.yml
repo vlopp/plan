@@ -14,10 +14,8 @@ cache:
   yarn: true
   directories:
   - node_modules
-  - functions/node_modules
 install:
   - yarn
-  - yarn --ignore-engines --cwd=functions
 
 script:
 - yarn test
