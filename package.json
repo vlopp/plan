@@ -33,7 +33,7 @@
     "redux": "^4.0.5",
     "styled-components": "^5.1.0",
     "ts-jest": "^25.3.1",
-    "typescript": "~3.7.2"
+    "typescript": "3.9.0-dev.20200418"
   },
   "scripts": {
     "start": "react-scripts start",
