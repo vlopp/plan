@@ -1,49 +1,65 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import {
-  Box,
-  Button,
-  Checkbox,
-  FormControlLabel,
-  Paper,
-  TextField,
-  Typography,
-} from "@material-ui/core";
+import { Paper, Typography } from "@material-ui/core";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
-import ReactPlayer from "react-player";
+import { Route, Switch, useLocation, useRouteMatch } from "react-router-dom";
 import vid from "./assets/vid.mp4";
+import { useTransition } from "react-spring";
 import {
-  useSprings,
-  animated,
-  useSpring,
-  useChain,
-  useTrail,
-  useTransition,
-} from "react-spring";
-import {
-  Root,
-  Main,
-  StyledReactPlayer,
-  FadeinText,
-  LoginPaper,
-  StyledForm,
-  Vignette,
+  AccountPaper,
   AnimatedTypography,
-  LoginTitleTypography,
-  LoginTextField,
-  LoginCheckbox,
-  LoginButton,
-  LoginFacebookButton,
-  LoginGoogleButton,
-  LoginBox,
-  LoginTypography,
+  Main,
+  Root,
+  SlideContainer,
+  StyledReactPlayer,
+  Vignette,
 } from "./Landing.stl";
+import { LoginForm } from "./LoginForm.cmp";
+import { SignupForm } from "./SignupForm.cmp";
+import { AccountFormsContainer } from "./Forms.stl";
 
-// TODO anim
-// TODO routing
+//todo slides
+const Plakietka = styled(Paper)`
+  &.MuiPaper-root {
+    width: 700px;
+    height: 500px;
+    background: linear-gradient(#1010108a, #1e1e1e66);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+`;
+// tego nie ruszaj, tymczasowe
+const Slides = ({ slideNumber }: { slideNumber: number }) => {
+  const { t } = useTranslation();
+  switch (slideNumber) {
+    case 0:
+      return <Typography variant={"h1"}>Gotuj</Typography>;
+    case 1:
+      return <Typography variant={"h1"}>Bardzo dużo gotuj...</Typography>;
+    case 2:
+      return <Typography variant={"h1"}>Jak najwięcej gotuj...</Typography>;
+    case 3:
+      return (
+        <Plakietka>
+          <Typography align={"center"}>Dużo ficzurów</Typography>
+        </Plakietka>
+      );
+    default:
+      return (
+        <Plakietka>
+          <Typography align={"center"}>Bardzo durzo ficzuruw...</Typography>
+        </Plakietka>
+      );
+  }
+};
+Slides.slideCount = 5;
+
 export default () => {
+  const routeMatch = useRouteMatch();
+  const location = useLocation();
+
   const { handleSubmit, register } = useForm();
   const { t } = useTranslation();
   const onSubmit = (data) => {
@@ -51,32 +67,16 @@ export default () => {
     // TODO login proc
   };
 
-  const a = ["zaplanuj", "organizuj", "gotuj"];
-  const springRefs = useRef<any>();
-  // @ts-ignore
-  const springs = useSprings(
-    a.length,
-    [1, 2, 3].map((x) => ({
-      from: { opacity: 0 },
-      opacity: 1,
-      ref: springRefs,
-    }))
-  );
-  const sprr = useRef<any>();
-
-  const spr = useSpring({ from: { opacity: 0 }, opacity: 1, ref: sprr });
-
-  useChain([springRefs, sprr]);
-
-  const trails = useTrail(a.length, { from: { opacity: 0 }, opacity: 1 });
-  const [text, setText] = useState("Hello, nig!");
+  const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
   useEffect(() => {
-    setInterval(() => {
-      setText(a[(Math.floor(Math.random() * a.length))]);
-    }, 1000);
-  }, []);
+    setInterval(
+      () =>
+        setCurrentSlideIndex((x) => (x + 1 === Slides.slideCount ? 0 : ++x)),
+      4000
+    );
+  }, [setCurrentSlideIndex]);
 
-  const textTrn = useTransition(text, null, {
+  const textTrn = useTransition(currentSlideIndex, (item) => item, {
     from: { opacity: 0 },
     enter: { opacity: 1 },
     leave: { opacity: 0 },
@@ -85,76 +85,59 @@ export default () => {
     },
   });
 
+  const formsTrn = useTransition(location, (location) => location.pathname, {
+    from: {
+      position: "absolute",
+      opacity: 0,
+      transform: "translateY(100%) scale(0)",
+    },
+    enter: {
+      position: "static",
+      opacity: 1,
+      transform: "translateX(0) scale(1)",
+    },
+    leave: {
+      position: "absolute",
+      opacity: 0,
+      transform: "translateY(-100%) scale(0)",
+    },
+    config: { mass: 5, friction: 500, tension: 5000 },
+  });
+
   return (
     <Root>
+      <StyledReactPlayer
+        height={"100%"}
+        width={"100%"}
+        url={vid}
+        playing
+        loop
+        muted
+      />
       <Main>
         <AnimatedTypography />
-        <StyledReactPlayer
-          height={"100%"}
-          width={"100%"}
-          url={vid}
-          playing
-          loop
-          muted
-        />
 
         <Vignette />
-        <Box
-          height={"100%"}
-          width={"100%"}
-          display={"flex"}
-          justifyContent={"center"}
-          alignItems={"center"}
-        >
-          <FadeinText variant={"h1"} style={{ position: "absolute" }}>
-            {textTrn.map((x) => (
-              <AnimatedTypography align="center" variant={"h1"} style={x.props}>
-                {x.item}
-              </AnimatedTypography>
-            ))}
-          </FadeinText>
-        </Box>
+        {textTrn.map(({ item: Item, props, key }) => (
+          <SlideContainer style={props} key={key}>
+            <Slides slideNumber={Item} />
+          </SlideContainer>
+        ))}
       </Main>
-      <LoginPaper square>
-        <StyledForm onSubmit={handleSubmit(onSubmit)}>
-          <LoginTitleTypography gutterBottom variant={"h6"}>
-            {t("log in")}
-          </LoginTitleTypography>
-          <LoginTextField
-            name={"login"}
-            inputRef={register}
-            label={t("email")}
-          />
-          <LoginTextField
-            type={"password"}
-            name={"password"}
-            inputRef={register}
-            label={t("password")}
-          />
-          <LoginBox display={"flex"} justifyContent={"space-around"}>
-            <FormControlLabel
-              control={<LoginCheckbox inputRef={register} name="rememberMe" />}
-              label={t("remember me")}
-            />
-            <Link to={"/recover-password"} component={Button}>
-              {t("recover password")}
-            </Link>
-          </LoginBox>
-          <LoginButton variant={"outlined"} type={"submit"}>
-            {t("log in")}
-          </LoginButton>
-          <LoginFacebookButton variant={"outlined"} type={"submit"}>
-            Facebook
-          </LoginFacebookButton>
-          <LoginGoogleButton variant={"outlined"} type={"submit"}>
-            Google
-          </LoginGoogleButton>
-          <LoginTypography align={"center"}>
-            {t("Don't have an account yet?")}{" "}
-            <Link to={"create-account"}>{t("Create account")}</Link>
-          </LoginTypography>
-        </StyledForm>
-      </LoginPaper>
+      <AccountPaper square>
+        {formsTrn.map(({ item, key, props }) => (
+          <AccountFormsContainer key={key} style={props}>
+            <Switch location={item}>
+              <Route path={`${routeMatch.path}/sign-up`}>
+                <SignupForm />
+              </Route>
+              <Route path={"*"}>
+                <LoginForm />
+              </Route>
+            </Switch>
+          </AccountFormsContainer>
+        ))}
+      </AccountPaper>
     </Root>
   );
 };

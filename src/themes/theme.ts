@@ -18,6 +18,11 @@ declare module "styled-components" {
 }
 
 export const theme = createMuiTheme({
-  palette: { type: "dark" },
+  palette: {
+    type: "dark",
+    background: {
+      paper: "#242424",
+    },
+  },
   scrollbarWidth: "16px",
 });

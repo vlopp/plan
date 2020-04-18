@@ -1,19 +1,20 @@
 import React from "react";
-import { HashRouter, Route, Redirect } from "react-router-dom";
-import { LANDING_ROUTE_PATH } from "./features/landing/const";
+import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import Landing from "./features/landing/Landing.cmp";
-import styled from "styled-components";
 
 function App() {
   return (
-    <HashRouter>
-      <Route path={LANDING_ROUTE_PATH}>
-        <Landing/>
-      </Route>
-      <Route path={"*"}>
-        <Redirect to={"/welcome"} />
-      </Route>
-    </HashRouter>
+    <BrowserRouter>
+      <Switch>
+        <Route path={"/welcome"}>
+          <Landing />
+        </Route>
+
+        <Route path={"*"}>
+          <Redirect to={"/welcome"} />
+        </Route>
+      </Switch>
+    </BrowserRouter>
   );
 }
 
