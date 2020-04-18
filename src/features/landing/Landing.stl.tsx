@@ -1,7 +1,9 @@
 import styled from "styled-components";
-import { Paper, Typography, makeStyles, Theme } from "@material-ui/core";
+import { Paper, Typography, makeStyles, Theme, TextField, Button, Checkbox, Box } from "@material-ui/core";
 import ReactPlayer from "react-player";
 import {animated} from 'react-spring';
+
+
 
 export const Vignette = styled.div`
   height: 100%;
@@ -42,6 +44,10 @@ export const StyledForm = styled.form`
 export const LoginPaper = styled(Paper)`
   height: 100%;
   max-width: 500px;
+  background: linear-gradient(#242424,#000000);
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
 `;
 
 export const Main = styled.main`
@@ -61,8 +67,6 @@ export const StyledReactPlayer = styled(ReactPlayer)`
   position: absolute;
 `;
 
- 
-
 export const FadeinText = styled(Typography)`
   color: white;
 `;
@@ -71,8 +75,54 @@ export const AnimatedTypography = styled(animated(Typography))`
   position: absolute;
   transform: translate(-50%, -50%);
   width: 500px;
+  font-family: 'Lemon', cursive;
 `;
 
+export const LoginTitleTypography = styled(Typography)`
+  text-align: center;
+  font-size: 1.5rem;
+`;
+
+export const LoginTextField = styled(TextField)`
+  label{
+    color: #636363;
+  }
+  .Mui-focused{
+    color: #FFFFFF;
+  }
+`;
+
+export const LoginBox = styled(Box)`
+  color: #636363;
+`;
+
+export const LoginCheckbox = styled(Checkbox)`
+  color: #636363;
+`;
+
+export const LoginButton = styled(Button)`
+  border-radius: 100px;
+  border: 1px solid #636363;
+  text-transform: none;
+`;
+
+export const LoginFacebookButton = styled(Button)`
+  border-radius: 100px;
+  border: 1px solid #636363;
+  text-transform: none;
+  background-color: #001A62;
+`;
+
+export const LoginGoogleButton = styled(Button)`
+  border-radius: 100px;
+  border: 1px solid #636363;
+  text-transform: none;
+  background-color: #932020;
+`;
+
+export const LoginTypography = styled(Typography)`
+  color: #636363;
+`;
 
 const useStyles = makeStyles<Theme, {a:string}>( theme => ({
   asd:{

@@ -31,6 +31,14 @@ import {
   StyledForm,
   Vignette,
   AnimatedTypography,
+  LoginTitleTypography,
+  LoginTextField,
+  LoginCheckbox,
+  LoginButton,
+  LoginFacebookButton,
+  LoginGoogleButton,
+  LoginBox,
+  LoginTypography,
 } from "./Landing.stl";
 
 // TODO anim
@@ -43,7 +51,7 @@ export default () => {
     // TODO login proc
   };
 
-  const a = ["Gotuj", "Planuj", "Cośtam"];
+  const a = ["zaplanuj", "organizuj", "gotuj"];
   const springRefs = useRef<any>();
   // @ts-ignore
   const springs = useSprings(
@@ -109,38 +117,42 @@ export default () => {
       </Main>
       <LoginPaper square>
         <StyledForm onSubmit={handleSubmit(onSubmit)}>
-          <Typography gutterBottom variant={"h6"}>
+          <LoginTitleTypography gutterBottom variant={"h6"}>
             {t("log in")}
-          </Typography>
-          <TextField name={"login"} inputRef={register} label={t("email")} />
-          <TextField
+          </LoginTitleTypography>
+          <LoginTextField
+            name={"login"}
+            inputRef={register}
+            label={t("email")}
+          />
+          <LoginTextField
             type={"password"}
             name={"password"}
             inputRef={register}
             label={t("password")}
           />
-          <Box display={"flex"} justifyContent={"space-around"}>
+          <LoginBox display={"flex"} justifyContent={"space-around"}>
             <FormControlLabel
-              control={<Checkbox inputRef={register} name="rememberMe" />}
+              control={<LoginCheckbox inputRef={register} name="rememberMe" />}
               label={t("remember me")}
             />
             <Link to={"/recover-password"} component={Button}>
               {t("recover password")}
             </Link>
-          </Box>
-          <Button variant={"outlined"} type={"submit"}>
+          </LoginBox>
+          <LoginButton variant={"outlined"} type={"submit"}>
             {t("log in")}
-          </Button>
-          <Button variant={"outlined"} type={"submit"}>
+          </LoginButton>
+          <LoginFacebookButton variant={"outlined"} type={"submit"}>
             Facebook
-          </Button>
-          <Button variant={"outlined"} type={"submit"}>
+          </LoginFacebookButton>
+          <LoginGoogleButton variant={"outlined"} type={"submit"}>
             Google
-          </Button>
-          <Typography align={"center"}>
-            {t("dont have an account yet")}{" "}
-            <Link to={"create-account"}>{t("create account")}</Link>
-          </Typography>
+          </LoginGoogleButton>
+          <LoginTypography align={"center"}>
+            {t("Don't have an account yet?")}{" "}
+            <Link to={"create-account"}>{t("Create account")}</Link>
+          </LoginTypography>
         </StyledForm>
       </LoginPaper>
     </Root>
