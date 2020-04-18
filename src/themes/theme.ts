@@ -3,6 +3,7 @@ import { createMuiTheme, Theme } from "@material-ui/core/styles";
 declare module "@material-ui/core/styles/createMuiTheme" {
   export interface ThemeOptions extends Partial<CustomTheme> {}
   export interface Theme extends CustomTheme {}
+  export interface DefaultTheme extends CustomTheme {}
 }
 
 interface CustomTheme {

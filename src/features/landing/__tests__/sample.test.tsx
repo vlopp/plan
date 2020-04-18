@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 describe("Sample test", function () {
   it("should complete", function () {

@@ -1,7 +1,8 @@
 import React from "react";
 import { HashRouter, Route, Redirect } from "react-router-dom";
 import { LANDING_ROUTE_PATH } from "./features/landing/const";
-import Landing from "./features/landing/Landing";
+import Landing from "./features/landing/Landing.cmp";
+import styled from "styled-components";
 
 function App() {
   return (

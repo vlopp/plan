@@ -3,6 +3,8 @@
 .vscode
 .env
 
+.history
+
 *.cache
 
 travis.log
