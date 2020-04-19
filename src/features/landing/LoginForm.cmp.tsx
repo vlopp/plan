@@ -1,12 +1,11 @@
 import React from "react";
-import { FormControlLabel, Button, Typography } from "@material-ui/core";
+import { FormControlLabel, Checkbox, Button, Typography } from "@material-ui/core";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useRouteMatch, useHistory, Link } from "react-router-dom";
 import {
   LoginBox,
   LoginButton,
-  LoginCheckbox,
   LoginFacebookButton,
   LoginGoogleButton,
   LoginTypography,
@@ -39,7 +38,7 @@ export const LoginForm = () => {
       <SignUpLogInTextField
         name={"email"}
         inputRef={register}
-        label={t("email")}
+        label={t("E-mail")}
         error={Boolean(errors.email)}
         helperText={errors?.email?.type}
       />
@@ -47,31 +46,33 @@ export const LoginForm = () => {
         type={"password"}
         name={"password"}
         inputRef={register}
-        label={t("password")}
+        label={t("Password")}
         error={Boolean(errors.password)}
         helperText={errors?.password?.type}
       />
       <LoginBox display={"flex"} justifyContent={"space-around"}>
         <FormControlLabel
-          control={<LoginCheckbox inputRef={register} name="rememberMe" />}
+          control={<Checkbox color={"default"} inputRef={register} name="rememberMe" />}
           label={t("remember me")}
         />
         <Link to={"recover-password"} component={Button}>
           {t("recover password")}
         </Link>
       </LoginBox>
-      <LoginButton variant={"outlined"} type={"submit"}>
+      <LoginButton size={"large"} variant={"outlined"} type={"submit"}>
         {t("log in")}
       </LoginButton>
-      <LoginFacebookButton variant={"outlined"} type={"submit"}>
+      <LoginFacebookButton size={"large"} variant={"outlined"} type={"submit"}>
         Facebook
       </LoginFacebookButton>
-      <LoginGoogleButton variant={"outlined"} type={"submit"}>
+      <LoginGoogleButton size={"large"} variant={"outlined"} type={"submit"}>
         Google
       </LoginGoogleButton>
       <LoginTypography align={"center"}>
-        {t("don't have an account yet?")}{" "}
-        <Link to={`/welcome/sign-up`}>{t("Create account")}</Link>
+        {t("Don't have an account yet?")}{" "}
+        <Link to={`/welcome/sign-up`} component={Button}>
+          {t("Create account")}
+        </Link>
       </LoginTypography>
     </StyledForm>
   );
